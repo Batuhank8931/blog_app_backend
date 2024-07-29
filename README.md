@@ -20,6 +20,7 @@
   sunucu çalışırken [http://127.0.0.1:8000] adresinde çalışacaktır.
 
 (*) php versiyonuna göre php.ini dosyasındaki aşağıdaki satarılar comment out yapılabilir;
+
     -extension=pdo_sqlite
     -extension=sqlite3
     -extension=fileinfo
