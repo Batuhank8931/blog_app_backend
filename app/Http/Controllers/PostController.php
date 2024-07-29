@@ -29,34 +29,28 @@ class PostController extends Controller implements HasMiddleware
      */
     public function store(Request $request)
     {
-        // Validate the request data
         $fields = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
         ]);
 
-        // Generate the slug from the title
         $fields['slug'] = $this->generateSlug($fields['title']);
 
-        // Get the current user
         $user = $request->user();
 
-        // Count the number of posts created by the user today
         $postCountToday = $user->posts()
             ->whereDate('created_at', now()->toDateString())
             ->count();
 
-        // Check if the user has reached the maximum limit of 3 posts per day
         if ($postCountToday >= 3) {
             return response()->json([
                 'message' => 'Max limit of posting a blog is 3 in a day.'
             ]);
         }
 
-        // Create a new post with the validated data
         $post = $request->user()->posts()->create($fields);
 
-        // Return the newly created post
+
         return response()->json(['post' => $post, 'user' => $post->user], 201);
     }
 
@@ -75,7 +69,6 @@ class PostController extends Controller implements HasMiddleware
     {
         Gate::authorize('modify', $post);
 
-        // Validate the request data
         $fields = $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
@@ -100,7 +93,7 @@ class PostController extends Controller implements HasMiddleware
         return ['message' => 'The post was deleted'];
     }
 
-            // SLUG GENERATOR
+    // SLUG GENERATOR:
 
     private function generateSlug($title) {
         $slug = strtolower($title);
