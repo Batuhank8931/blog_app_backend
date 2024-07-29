@@ -47,7 +47,7 @@ class PostController extends Controller implements HasMiddleware
             ->count();
 
         // Check if the user has reached the maximum limit of 3 posts per day
-        if ($postCountToday >= 300) {
+        if ($postCountToday >= 3) {
             return response()->json([
                 'message' => 'Max limit of posting a blog is 3 in a day.'
             ]);
@@ -57,7 +57,7 @@ class PostController extends Controller implements HasMiddleware
         $post = $request->user()->posts()->create($fields);
 
         // Return the newly created post
-        return ['post' => $post, 'user' => $post->user];
+        return response()->json(['post' => $post, 'user' => $post->user], 201);
     }
 
     /**
@@ -105,9 +105,9 @@ class PostController extends Controller implements HasMiddleware
     private function generateSlug($title) {
         $slug = strtolower($title);
 
-        $slug = preg_replace('/[^\w]+/', '_', $slug);
+        $slug = preg_replace('/[^\w]+/', '-', $slug);
 
-        $slug = trim($slug, '_');
+        $slug = trim($slug, '-');
 
         return $slug;
     }
