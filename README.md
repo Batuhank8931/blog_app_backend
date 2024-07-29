@@ -2,10 +2,6 @@
 
 ## Çalıştırmak için;
 
-1. Navigate to your project root directory in the terminal.
-
-#### Çalıştırmak için :
-
 - Proje klasörüne gidin:
   `cd blog_app_backend/`
   
