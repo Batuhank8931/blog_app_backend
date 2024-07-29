@@ -21,6 +21,6 @@
 
 (*) php versiyonuna göre php.ini dosyasındaki aşağıdaki satarılar comment out yapılabilir;
 
-    -extension=pdo_sqlite
-    -extension=sqlite3
-    -extension=fileinfo
+    extension=pdo_sqlite
+    extension=sqlite3
+    extension=fileinfo
